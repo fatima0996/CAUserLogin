@@ -13,15 +13,12 @@ import use_case.signup.SignupUserDataAccessInterface;
  * NOT persist data between runs of the program.
  */
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
-                                                     LoginUserDataAccessInterface,
-                                                     ChangePasswordUserDataAccessInterface {
+        LoginUserDataAccessInterface,
+        ChangePasswordUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
-    private String currentUser;
-
-    public InMemoryUserDataAccessObject() {
-    }
+    private String currentUser = null;
 
     @Override
     public boolean existsByName(String identifier) {
@@ -36,6 +33,11 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     @Override
     public User get(String username) {
         return users.get(username);
+    }
+
+    @Override
+    public void setCurrentUser(String name) {
+        this.currentUser = name;
     }
 
     @Override
